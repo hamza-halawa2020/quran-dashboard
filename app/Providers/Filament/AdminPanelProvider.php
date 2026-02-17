@@ -30,6 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->profile()
             ->brandName('Bayaan Academy')
             ->colors([
                 'primary' => Color::Green,
@@ -59,6 +60,8 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->spa()
+            ->sidebarCollapsibleOnDesktop()         
             ->userMenuItems([
                 // MenuItem::make()
                     // ->label(fn() => app()->getLocale() === 'ar' ? 'English' : 'عربي')

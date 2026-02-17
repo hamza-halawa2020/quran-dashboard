@@ -4,107 +4,107 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use App\Models\Category;
-use App\Models\Staff;
-use App\Models\SuccessPartner;
 use App\Models\Review;
-use App\Models\Service;
-use App\Models\FeasibilityStudy;
-use App\Models\InvestmentOpportunity;
-use App\Models\Faq;
 use App\Models\Post;
 use App\Models\MainSlider;
 use App\Models\Contact;
-use App\Models\WorkSample;
-use App\Models\FeasibilityStudyRequest;
+use App\Models\Course;
+use App\Models\MediaCenter;
+use App\Models\Setting;
+use Illuminate\Support\Facades\Hash;
 
 class ComprehensiveSeeder extends Seeder
 {
     public function run()
     {
-        // إنشاء المستخدمين أولاً
-        $admin = User::create([
-            'name' => 'أحمد محمد',
-            'email' => 'admin@example.com',
-            'password' => bcrypt('12345678'),
-        ]);
+        // 1. Create Admin User
+        $admin = User::updateOrCreate(
+            ['email' => 'admin@example.com'],
+            [
+                'name' => 'Bayaan Academy Admin',
+                'password' => Hash::make('12345678'),
+            ]
+        );
 
-        $manager = User::create([
-            'name' => 'سارة أحمد',
-            'email' => 'manager@company.com',
-            'password' => bcrypt('password123'),
-        ]);
+        // 2. Create Site Settings
+        Setting::updateOrCreate(
+            ['id' => 1],
+            [
+                'phone' => '+201234567890',
+                'whatsapp' => '+201234567890',
+                'facebook' => 'https://facebook.com/bayaanacademy',
+                'instagram' => 'https://instagram.com/bayaanacademy',
+                'email' => 'info@bayaan-academy.com',
+                'address' => 'Cairo, Egypt - Online via Zoom Worldwide',
+                'about_us' => 'Bayaan Academy is an online educational platform specializing in teaching the Holy Quran, Arabic language, and Islamic studies for both native and non-native speakers. We aim to spread the light of revelation using the latest educational methods.',
+                'about_us_footer' => 'A leading academy in Quranic sciences and Arabic language, combining quality education with the honesty of communication.',
+                'logo' => 'settings/default-logo.png',
+            ]
+        );
 
-      
-
-   
-        // إنشاء التقييمات
-        $reviews = [
+        // 3. Create Courses
+        $courses = [
             [
-                'name' => 'عبدالرحمن الأحمد',
-                'review' => 'خدمة ممتازة وفريق محترف. ساعدوني في إعداد دراسة جدوى شاملة لمشروع مطعمي الجديد. النتائج فاقت توقعاتي والمشروع حقق أرباحاً ممتازة.',
+                'title' => 'Noor Al-Bayan Course',
+                'description' => 'A specialized course for children and beginners to learn reading and writing in Arabic using the approved Noor Al-Bayan curriculum, enabling them to read the Holy Quran correctly.',
+                'image' => 'courses/noor-al-bayan.jpg',
                 'status' => 1,
-                'approved_by' => $admin->id,
+                'created_by' => $admin->id,
             ],
             [
-                'name' => 'نورا السالم',
-                'review' => 'أنصح بشدة بالتعامل مع هذه الشركة. دراسة الجدوى كانت دقيقة ومفصلة، وساعدتني في اتخاذ قرار صحيح بخصوص مشروع التجارة الإلكترونية.',
+                'title' => 'Quran Memorization (Hifz)',
+                'description' => 'Individual or small group sessions with certified teachers (Ijazah holders), focusing on quality memorization and continuous revision with the application of Tajweed rules.',
+                'image' => 'courses/hifz.jpg',
                 'status' => 1,
-                'approved_by' => $admin->id,
+                'created_by' => $admin->id,
             ],
             [
-                'name' => 'محمد العتيبي',
-                'review' => 'فريق عمل متميز ومتعاون. قدموا لي استشارة شاملة وساعدوني في تطوير خطة عمل ناجحة لمشروع الخدمات التقنية.',
+                'title' => 'Tajweed Rules (Theory & Practice)',
+                'description' => 'A comprehensive course explaining the articulation points of letters, their characteristics, and rules of Noon/Meem Mushaddadah, with direct practical application from the Mushaf.',
+                'image' => 'courses/tajweed.jpg',
                 'status' => 1,
-                'approved_by' => $admin->id,
+                'created_by' => $admin->id,
             ],
             [
-                'name' => 'سارة المطيري',
-                'review' => 'خدمة عملاء رائعة ومتابعة مستمرة. دراسة الجدوى ساعدتني في الحصول على تمويل بنكي لمشروع مركز التدريب.',
+                'title' => 'Arabic for Non-Native Speakers',
+                'description' => 'A specialized program for non-Arabs to learn the four skills (reading, writing, listening, and speaking) through modern interactive methods.',
+                'image' => 'courses/arabic-non-native.jpg',
                 'status' => 1,
-                'approved_by' => $admin->id,
+                'created_by' => $admin->id,
             ],
             [
-                'name' => 'خالد الزهراني',
-                'review' => 'أفضل شركة تعاملت معها في مجال دراسات الجدوى. التحليل المالي كان دقيقاً جداً والتوقعات تحققت بالفعل.',
+                'title' => 'Prophetic Biography & Islamic Manners',
+                'description' => 'Instilling values and good morals in children through stories of the prophets and the biography of Prophet Muhammad (PBUH), along with daily Islamic etiquette.',
+                'image' => 'courses/islamic-studies.jpg',
                 'status' => 1,
-                'approved_by' => $admin->id,
+                'created_by' => $admin->id,
             ],
         ];
 
-        foreach ($reviews as $review) {
-            Review::create($review);
+        foreach ($courses as $course) {
+            Course::create($course);
         }
-        
-        
 
-        // إنشاء المقالات
+        // 4. Create Posts
         $posts = [
             [
-                'title' => 'أهمية دراسة الجدوى في نجاح المشاريع الصغيرة',
-                'description' => 'تعتبر دراسة الجدوى من أهم الخطوات التي يجب على رائد الأعمال القيام بها قبل البدء في أي مشروع. في هذا المقال نستعرض أهمية دراسة الجدوى وكيف تساهم في نجاح المشاريع الصغيرة والمتوسطة. نناقش العناصر الأساسية لدراسة الجدوى وكيفية إعدادها بطريقة احترافية تضمن اتخاذ قرارات استثمارية صحيحة.',
-                'image' => 'posts/feasibility-importance.jpg',
+                'title' => 'Best Ways to Memorize and Retain the Quran',
+                'description' => 'In this article, we review 5 proven strategies that help you memorize the Quran quickly while ensuring you don\'t forget, focusing on spaced repetition and understanding before memorizing.',
+                'image' => 'posts/hifz-tips.jpg',
                 'status' => 1,
                 'created_by' => $admin->id,
             ],
             [
-                'title' => 'اتجاهات الاستثمار في التكنولوجيا لعام 2026',
-                'description' => 'نستكشف في هذا المقال أحدث اتجاهات الاستثمار في قطاع التكنولوجيا لعام 2026. نتناول الفرص الاستثمارية الواعدة في الذكاء الاصطناعي، إنترنت الأشياء، البلوك تشين، والتكنولوجيا المالية. كما نقدم نصائح للمستثمرين حول كيفية اختيار الفرص الاستثمارية المناسبة وتقييم المخاطر.',
-                'image' => 'posts/tech-investment-trends.jpg',
+                'title' => 'Why Should Our Children Learn Arabic?',
+                'description' => 'Arabic is the language of the Quran and the key to understanding religion. We discuss the challenges parents face abroad and how to make the language lovable for their children.',
+                'image' => 'posts/why-arabic.jpg',
                 'status' => 1,
                 'created_by' => $admin->id,
             ],
             [
-                'title' => 'كيفية إعداد خطة عمل ناجحة',
-                'description' => 'خطة العمل هي خارطة الطريق لنجاح أي مشروع. في هذا المقال نقدم دليلاً شاملاً لإعداد خطة عمل احترافية تشمل جميع العناصر الضرورية من تحليل السوق والمنافسين إلى الخطة المالية والتسويقية. نشارك أيضاً أمثلة عملية ونصائح من خبراء في مجال ريادة الأعمال.',
-                'image' => 'posts/business-plan-guide.jpg',
-                'status' => 1,
-                'created_by' => $admin->id,
-            ],
-            [
-                'title' => 'التحول الرقمي وأثره على الأعمال التجارية',
-                'description' => 'يشهد العالم تسارعاً في عملية التحول الرقمي، وهذا يؤثر بشكل كبير على طريقة ممارسة الأعمال التجارية. نناقش في هذا المقال كيف يمكن للشركات الاستفادة من التحول الرقمي لتحسين عملياتها وزيادة كفاءتها. نستعرض أيضاً التحديات والفرص التي يوفرها التحول الرقمي.',
-                'image' => 'posts/digital-transformation.jpg',
+                'title' => 'The Impact of Tajweed in Pondering over Allah\'s Verses',
+                'description' => 'Tajweed is not just beautiful sounds; it is giving every letter its right, which helps the reader to contemplate, have humility, and understand Allah\'s intent.',
+                'image' => 'posts/tajweed-impact.jpg',
                 'status' => 1,
                 'created_by' => $admin->id,
             ],
@@ -114,29 +114,29 @@ class ComprehensiveSeeder extends Seeder
             Post::create($post);
         }
 
-        // إنشاء شرائح العرض الرئيسية
+        // 5. Create Main Sliders
         $sliders = [
             [
-                'title' => 'نحول أفكارك إلى مشاريع ناجحة',
-                'description' => 'نقدم دراسات جدوى احترافية ومتكاملة تساعدك في اتخاذ قرارات استثمارية صحيحة وتحقيق النجاح في مشروعك',
-                'link' => '/services',
-                'image' => 'sliders/main-slide-1.jpg',
+                'title' => 'Welcome to Bayaan Academy',
+                'description' => 'Your journey towards mastering the Holy Quran starts here, with a group of the best male and female teachers.',
+                'link' => '/courses',
+                'image' => 'sliders/slide-1.jpg',
                 'status' => 1,
                 'created_by' => $admin->id,
             ],
             [
-                'title' => 'خبرة تزيد عن 10 سنوات في دراسات الجدوى',
-                'description' => 'فريق من الخبراء والمتخصصين يقدم لك أفضل الحلول والاستشارات لضمان نجاح مشروعك وتحقيق أهدافك',
+                'title' => 'Learn Quran from Anywhere in the World',
+                'description' => 'Individual and interactive online sessions suitable for all ages and levels at the times you choose.',
+                'link' => '/register',
+                'image' => 'sliders/slide-2.jpg',
+                'status' => 1,
+                'created_by' => $admin->id,
+            ],
+            [
+                'title' => 'Noor Al-Bayan in Teaching Quran',
+                'description' => 'We use the latest curricula to ensure children learn correct reading in record time with great enjoyment.',
                 'link' => '/about',
-                'image' => 'sliders/main-slide-2.jpg',
-                'status' => 1,
-                'created_by' => $admin->id,
-            ],
-            [
-                'title' => 'شريكك في النجاح والتميز',
-                'description' => 'نساعدك في كل خطوة من خطوات مشروعك من الفكرة إلى التنفيذ مع متابعة مستمرة لضمان تحقيق أفضل النتائج',
-                'link' => '/contact',
-                'image' => 'sliders/main-slide-3.jpg',
+                'image' => 'sliders/slide-3.jpg',
                 'status' => 1,
                 'created_by' => $admin->id,
             ],
@@ -146,37 +146,79 @@ class ComprehensiveSeeder extends Seeder
             MainSlider::create($slider);
         }
 
-        // إنشاء رسائل التواصل
+        // 6. Create Reviews
+        $reviews = [
+            [
+                'name' => 'Mr. Mohamed Ibrahim',
+                'review' => 'Alhumdulillah, my son started reading from the Mushaf correctly after only 3 months of the Noor Al-Bayan course. The teacher is very patient and highly skilled.',
+                'status' => 1,
+                'approved_by' => $admin->id,
+            ],
+            [
+                'name' => 'Dr. Heba Mahmoud',
+                'review' => 'Wonderful academy, classes are regular and the curriculum is clear. They helped me a lot in correcting my recitation and I am now on my way to obtaining the Ijazah.',
+                'status' => 1,
+                'approved_by' => $admin->id,
+            ],
+            [
+                'name' => 'Ahmed Al-Ali (Expat in Canada)',
+                'review' => 'I was worried about my children\'s language, but with Bayaan Academy they found the right environment to learn Arabic and Quran as if they were in an Arabic-speaking country.',
+                'status' => 1,
+                'approved_by' => $admin->id,
+            ],
+        ];
+
+        foreach ($reviews as $review) {
+            Review::create($review);
+        }
+
+        // 7. Create Media Center Items
+        $mediaRecords = [
+            [
+                'title' => 'Surah Al-Baqarah Graduation Ceremony 2025',
+                'type' => 'image',
+                'file' => 'media/graduation-2025.jpg',
+                'status' => 1,
+                'created_by' => $admin->id,
+            ],
+            [
+                'title' => 'Recitation Sample by One of Our Star Students',
+                'type' => 'video',
+                'video_url' => 'https://youtube.com/watch?v=example',
+                'status' => 1,
+                'created_by' => $admin->id,
+            ],
+             [
+                'title' => 'Arabic Language Class for Kids',
+                'type' => 'image',
+                'file' => 'media/arabic-class.jpg',
+                'status' => 1,
+                'created_by' => $admin->id,
+            ],
+        ];
+
+        foreach ($mediaRecords as $record) {
+            MediaCenter::create($record);
+        }
+
+        // 8. Create Contacts (Sample)
         $contacts = [
             [
-                'name' => 'أحمد محمد العلي',
-                'phone' => '+966501234567',
-                'message' => 'أرغب في الحصول على استشارة حول مشروع مطعم جديد في الرياض. هل يمكنكم مساعدتي في إعداد دراسة جدوى شاملة؟',
+                'name' => 'Yasser Al-Qahtani',
+                'phone' => '+966500000000',
+                'message' => 'Assalamu Alaikum, do you have available slots in the evening for Quran memorization for kids?',
             ],
-            [
-                'name' => 'فاطمة أحمد السالم',
-                'phone' => '+966507654321',
-                'message' => 'لدي فكرة لمتجر إلكتروني وأحتاج إلى دراسة جدوى مفصلة. متى يمكنني الحصول على موعد للاستشارة؟',
-            ],
-            [
-                'name' => 'خالد عبدالله المطيري',
-                'phone' => '+966512345678',
-                'message' => 'أبحث عن شريك استثماري لمشروع تقني. هل تقدمون خدمات في هذا المجال؟',
+             [
+                'name' => 'Mona Al-Sayer',
+                'phone' => '+447000000000',
+                'message' => 'I want to inquire about the fees and duration for the Arabic for Non-Native Speakers course.',
             ],
         ];
 
         foreach ($contacts as $contact) {
             Contact::create($contact);
         }
-        
-        
 
-        echo "تم إنشاء جميع البيانات بنجاح!\n";
-        echo "تم إنشاء:\n";
-        echo "- 5 فئات\n";
-        echo "- " . count($reviews) . " تقييم\n";
-        echo "- " . count($posts) . " مقال\n";
-        echo "- " . count($sliders) . " شريحة عرض\n";
-        echo "- " . count($contacts) . " رسالة تواصل\n";
+        echo "All Bayaan Academy data has been created successfully in English!\n";
     }
 }
