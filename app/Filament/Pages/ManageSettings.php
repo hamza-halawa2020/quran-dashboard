@@ -83,7 +83,6 @@ class ManageSettings extends Page
                     ->schema([
                         FileUpload::make('logo')
                             ->label('Logo')
-                            ->directory('settings')
                             ->image(),
                     ]),
             ])
