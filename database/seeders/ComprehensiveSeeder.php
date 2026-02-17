@@ -27,20 +27,23 @@ class ComprehensiveSeeder extends Seeder
         );
 
         // 2. Create Site Settings
-        Setting::updateOrCreate(
-            ['id' => 1],
-            [
-                'phone' => '+201234567890',
-                'whatsapp' => '+201234567890',
-                'facebook' => 'https://facebook.com/bayaanacademy',
-                'instagram' => 'https://instagram.com/bayaanacademy',
-                'email' => 'info@bayaan-academy.com',
-                'address' => 'Cairo, Egypt - Online via Zoom Worldwide',
-                'about_us' => 'Bayaan Academy is an online educational platform specializing in teaching the Holy Quran, Arabic language, and Islamic studies for both native and non-native speakers. We aim to spread the light of revelation using the latest educational methods.',
-                'about_us_footer' => 'A leading academy in Quranic sciences and Arabic language, combining quality education with the honesty of communication.',
-                'logo' => 'settings/default-logo.png',
-            ]
-        );
+        $settings = [
+            'phone' => '+201234567890',
+            'whatsapp' => '+201234567890',
+            'facebook' => 'https://facebook.com/bayaanacademy',
+            'instagram' => 'https://instagram.com/bayaanacademy',
+            'email' => 'info@bayaan-academy.com',
+            'address' => 'Cairo, Egypt - Online via Zoom Worldwide',
+            'about_us' => 'Bayaan Academy is an online educational platform specializing in teaching the Holy Quran, Arabic language, and Islamic studies for both native and non-native speakers. We aim to spread the light of revelation using the latest educational methods.',
+            'about_us_footer' => 'A leading academy in Quranic sciences and Arabic language, combining quality education with the honesty of communication.',
+            'logo' => 'settings/default-logo.png',
+            'privacy_policy' => '<h1>Privacy Policy</h1><p>We respect your privacy...</p>',
+            'terms_conditions' => '<h1>Terms & Conditions</h1><p>By using our services...</p>',
+        ];
+
+        foreach ($settings as $key => $value) {
+            Setting::setValue($key, $value);
+        }
 
         // 3. Create Courses
         $courses = [

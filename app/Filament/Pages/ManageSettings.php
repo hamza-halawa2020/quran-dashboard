@@ -5,6 +5,7 @@ namespace App\Filament\Pages;
 use App\Models\Setting;
 use BackedEnum;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
@@ -30,11 +31,7 @@ class ManageSettings extends Page
 
     public function mount(): void
     {
-        $settings = Setting::first();
-
-        if ($settings) {
-            $this->form->fill($settings->toArray());
-        }
+        $this->form->fill(Setting::getAllSettings());
     }
 
     public function form(Schema $schema): Schema
@@ -72,6 +69,16 @@ class ManageSettings extends Page
                             ->label('Address'),
                     ]),
 
+                Section::make('Policies')
+                    ->schema([
+                        RichEditor::make('privacy_policy')
+                            ->label('Privacy Policy')
+                            ->columnSpanFull(),
+                        RichEditor::make('terms_conditions')
+                            ->label('Terms & Conditions')
+                            ->columnSpanFull(),
+                    ]),
+
                 Section::make('Media')
                     ->schema([
                         FileUpload::make('logo')
@@ -88,12 +95,8 @@ class ManageSettings extends Page
         try {
             $data = $this->form->getState();
             
-            $settings = Setting::first();
-            
-            if ($settings) {
-                $settings->update($data);
-            } else {
-                Setting::create($data);
+            foreach ($data as $key => $value) {
+                Setting::setValue($key, $value);
             }
 
             Notification::make()

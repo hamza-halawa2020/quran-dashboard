@@ -11,17 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('settings');
+        
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('phone')->nullable();
-            $table->string('whatsapp')->nullable();
-            $table->string('facebook')->nullable();
-            $table->string('instagram')->nullable();
-            $table->string('email')->nullable();
-            $table->text('address')->nullable();
-            $table->text('about_us')->nullable();
-            $table->text('about_us_footer')->nullable();
-            $table->string('logo')->nullable();
+            $table->string('key')->unique();
+            $table->longText('value')->nullable();
             $table->timestamps();
         });
     }

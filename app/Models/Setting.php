@@ -10,19 +10,26 @@ class Setting extends Model
     use HasFactory;
 
     protected $fillable = [
-        'phone',
-        'whatsapp',
-        'facebook',
-        'instagram',
-        'email',
-        'address',
-        'about_us',
-        'about_us_footer',
-        'logo',
+        'key',
+        'value',
     ];
 
-    public static function getSettings()
+    public static function getValue($key, $default = null)
     {
-        return self::first();
+        $setting = self::where('key', $key)->first();
+        return $setting ? $setting->value : $default;
+    }
+
+    public static function setValue($key, $value)
+    {
+        return self::updateOrCreate(
+            ['key' => $key],
+            ['value' => $value]
+        );
+    }
+
+    public static function getAllSettings()
+    {
+        return self::pluck('value', 'key')->toArray();
     }
 }

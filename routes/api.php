@@ -9,7 +9,10 @@ use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\MediaCenterController;
+use App\Http\Controllers\Api\SettingController;
 
+
+Route::get('/settings', [SettingController::class, 'index']);
 
 Route::get('/posts', [PostController::class, 'index']);
 Route::get('/posts/{id}', [PostController::class, 'show']);
