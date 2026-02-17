@@ -48,14 +48,11 @@ class MainSliderResource extends Resource
             ->components([
                 TextInput::make('title')
                     ->label(__('Title'))
-                    ->required(),
-                TextInput::make('description')
+,                TextInput::make('description')
                     ->label(__('Description'))
-                    ->required(),
-                TextInput::make('link')
+,                TextInput::make('link')
                     ->label(__('Link'))
-                    ->required(),
-                FileUpload::make('image')
+,                FileUpload::make('image')
                     ->label(__('Image'))
                     ->image()
                     ->required(),
