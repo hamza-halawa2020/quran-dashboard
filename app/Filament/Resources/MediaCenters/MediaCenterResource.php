@@ -53,8 +53,6 @@ class MediaCenterResource extends Resource
                     ->options([
                         'image' => __('Image'),
                         'video' => __('Video'),
-                        'audio' => __('Audio'),
-                        'document' => __('Document'),
                     ])
                     ->required()
                     ->live(),

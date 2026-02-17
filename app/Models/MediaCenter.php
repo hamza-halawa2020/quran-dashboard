@@ -10,7 +10,7 @@ class MediaCenter extends Model
 
     protected $fillable = [
         'title',
-        'type',
+        'type', //'image', 'video'
         'file',
         'video_url',
         'status',

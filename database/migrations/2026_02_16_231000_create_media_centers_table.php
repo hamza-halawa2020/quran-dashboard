@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('media_centers', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->enum('type', ['image', 'video', 'audio', 'document']);
+            $table->enum('type', ['image', 'video']);
             $table->string('file')->nullable();
             $table->string('video_url')->nullable();
             $table->boolean('status')->default(true);
