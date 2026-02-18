@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -9,10 +8,10 @@ class ApiController extends Controller
 {
     protected $model;
     protected $resource;
-
     protected array $with = [];
     protected bool $paginate = true;
     protected int $perPage = 9;
+    protected array $filterableFields = [];
 
     public function index(Request $request)
     {
@@ -22,10 +21,14 @@ class ApiController extends Controller
             $query->active();
         }
 
+        foreach ($this->filterableFields as $field) {
+            if ($request->has($field) && $request->get($field) !== null && $request->get($field) !== 'all') {
+                $query->where($field, $request->get($field));
+            }
+        }
+
         if ($this->paginate) {
-            $items = $query->latest()->paginate(
-                $request->get('limit', $this->perPage)
-            );
+            $items = $query->latest()->paginate($request->get('limit', $this->perPage));
         } else {
             $items = $query->latest()->get();
         }
@@ -36,9 +39,6 @@ class ApiController extends Controller
     public function show($id)
     {
         $item = $this->model::with($this->with)->findOrFail($id);
-
         return new $this->resource($item);
     }
 }
-
-

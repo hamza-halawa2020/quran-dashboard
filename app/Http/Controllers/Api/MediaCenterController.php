@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Models\MediaCenter;
@@ -11,5 +10,6 @@ class MediaCenterController extends ApiController
     {
         $this->model = MediaCenter::class;
         $this->resource = MediaCenterResource::class;
+        $this->filterableFields = ['type'];
     }
 }
