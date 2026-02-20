@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\WorkSampleController;
-use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\MainSliderController;
 use App\Http\Controllers\Api\ReviewController;
@@ -25,5 +23,6 @@ Route::get('/media-center', [MediaCenterController::class, 'index']);
 Route::get('/main-sliders', [MainSliderController::class, 'index']);
 
 Route::get('/reviews', [ReviewController::class, 'index']);
+Route::post('/reviews', [ReviewController::class, 'store']);
 
 Route::post('/contacts', [ContactController::class, 'store']);
