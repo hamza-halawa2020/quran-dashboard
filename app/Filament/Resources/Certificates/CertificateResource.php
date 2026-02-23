@@ -47,8 +47,6 @@ class CertificateResource extends Resource
                     ->required(),
                 FileUpload::make('file')
                     ->label(__('File'))
-                    ->disk('public')
-                    ->directory('certificates')
                     ->required(),
                 Toggle::make('status')
                     ->label(__('Status'))
