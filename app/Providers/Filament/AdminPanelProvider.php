@@ -31,7 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->profile()
-            ->brandName('Bayaan Academy')
+            ->brandName('Online Islamic Madrasha')
             ->colors([
                 'primary' => Color::Green,
             ])
