@@ -5,7 +5,7 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\FileController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/admin');
 });
 
 Route::get('/language/{locale}', [LanguageController::class, 'switchLanguage'])->name('language.switch');
