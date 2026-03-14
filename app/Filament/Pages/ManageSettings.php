@@ -55,6 +55,11 @@ class ManageSettings extends Page
                         TextInput::make('email')
                             ->label('Email')
                             ->email(),
+                        Textarea::make('admin_notification_emails')
+                            ->label('Notification Emails')
+                            ->rows(2)
+                            ->placeholder('e.g. h.halawa2020@gmail.com, admin2@example.com')
+                            ->columnSpanFull(),
                     ])->columns(2),
 
                 Section::make('About Us')
