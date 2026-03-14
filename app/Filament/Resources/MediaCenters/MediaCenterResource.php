@@ -58,8 +58,6 @@ class MediaCenterResource extends Resource
                     ->live(),
                 FileUpload::make('file')
                     ->label(__('File'))
-                    ->disk('public')
-                    ->directory('media')
                     ->visible(fn ($get) => in_array($get('type'), ['image', 'audio', 'document']))
                     ->required(fn ($get) => in_array($get('type'), ['image', 'audio', 'document'])),
                 TextInput::make('video_url')
