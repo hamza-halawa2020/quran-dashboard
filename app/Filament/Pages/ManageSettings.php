@@ -58,7 +58,7 @@ class ManageSettings extends Page
                         Textarea::make('admin_notification_emails')
                             ->label('Notification Emails')
                             ->rows(2)
-                            ->placeholder('e.g. h.halawa2020@gmail.com, admin2@example.com')
+                            ->placeholder('e.g. zahraabdelraheem05@gmail.com, admin2@example.com')
                             ->columnSpanFull(),
                     ])->columns(2),
 
