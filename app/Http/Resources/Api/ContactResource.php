@@ -15,9 +15,13 @@ class ContactResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'phone' => $this->phone,
+            'id'      => $this->id,
+            'name'    => $this->name,
+            'phone'   => $this->phone,
+            'email'   => $this->email,
+            'age'     => $this->age,
+            'country' => $this->country,
+            'course'  => $this->course,
             'message' => $this->message,
         ];
     }

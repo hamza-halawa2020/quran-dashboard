@@ -48,6 +48,22 @@ class ContactResource extends Resource
                     ->label(__('Phone'))
                     ->tel()
                     ->required(),
+                TextInput::make('email')
+                    ->label(__('Email'))
+                    ->email()
+                    ->required(),
+                TextInput::make('age')
+                    ->label(__('Age'))
+                    ->numeric()
+                    ->minValue(1)
+                    ->maxValue(120)
+                    ->required(),
+                TextInput::make('country')
+                    ->label(__('Country'))
+                    ->required(),
+                TextInput::make('course')
+                    ->label(__('Course'))
+                    ->required(),
                 Textarea::make('message')
                     ->label(__('Message'))
                     ->required()
@@ -63,6 +79,14 @@ class ContactResource extends Resource
                     ->label(__('Name')),
                 TextEntry::make('phone')
                     ->label(__('Phone')),
+                TextEntry::make('email')
+                    ->label(__('Email')),
+                TextEntry::make('age')
+                    ->label(__('Age')),
+                TextEntry::make('country')
+                    ->label(__('Country')),
+                TextEntry::make('course')
+                    ->label(__('Course')),
                 TextEntry::make('message')
                     ->label(__('Message'))
                     ->columnSpanFull(),
@@ -84,12 +108,20 @@ class ContactResource extends Resource
                 TextColumn::make('phone')
                     ->label(__('Phone'))
                     ->searchable(),
+                TextColumn::make('email')
+                    ->label(__('Email'))
+                    ->searchable(),
+                TextColumn::make('country')
+                    ->label(__('Country'))
+                    ->searchable(),
+                TextColumn::make('course')
+                    ->label(__('Course'))
+                    ->searchable(),
                 TextColumn::make('created_at')
                     ->label(__('Created At'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-   
             ])
             ->filters([
                 //
