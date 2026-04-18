@@ -15,6 +15,7 @@ class ReviewStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
             'review' => 'required|string',
         ];
     }

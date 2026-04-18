@@ -9,6 +9,7 @@ class Review extends Model
     protected $table = 'reviews';
     protected $fillable = [
         'name',
+        'country',
         'review',
         'status',
         'approved_by',
